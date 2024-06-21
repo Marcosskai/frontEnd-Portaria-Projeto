@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
             actionsCell.className = 'actions-cell';
 
             const deleteIcon = document.createElement('img');
-            deleteIcon.src = 'style/delete  .png';
+            deleteIcon.src = 'style/delete.png';
             deleteIcon.alt = 'Excluir usuário';
             deleteIcon.style.width = '16px';
             deleteIcon.style.height = '16px';

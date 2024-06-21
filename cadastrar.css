@@ -68,3 +68,13 @@ h1 {
     position: relative;
     top: 69px;
 }
+
+.square img {
+    background-color: #D9D9D9;
+    border-radius: 80px;
+    height: 150px;
+    width: 150px;
+    padding: 28px;
+    position: relative;
+    top: -156px;
+}

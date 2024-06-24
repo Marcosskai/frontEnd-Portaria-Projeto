@@ -19,7 +19,7 @@ body {
     width: 400px;
 }
 
- a {
+a {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,7 +50,6 @@ li {
     border-radius: 10px;
     border: 1px solid #5a565681;
 }
-
 
 h1 {
     font-weight: 700;
@@ -83,26 +82,24 @@ h1 {
 }
 
 .inputs {
-
     position: relative;
     top: 143px;
- }
-
-input {
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+input {
     width: 500px;
     height: 40px;
-    margin: auto;
     border: 0;
     background-color: #EEEEEE;
     border-radius: 10px;
-    padding:15px;
+    padding: 15px;
     margin-top: 40px;
 }
 
-.imguser{
-    
+.imguser {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -116,4 +113,35 @@ input {
     height: 150px;
     width: 150px;
     padding: 24px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    position: relative;
+    top: 180px;
+}
+
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 50px;
+    border: 0;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+#btncancelar {
+    background-color: #D9D9D9;
+    color: black;
+    margin-right: 199px;
+}
+
+#btnsalvar {
+    background-color: #F6264D;
+    color: white;
 }

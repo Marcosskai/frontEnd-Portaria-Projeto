@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
-        rel="stylesheet"/>
-    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="cadastrar.css">
     <title>Cadastro</title>
 </head>
@@ -19,15 +16,15 @@
         <a href="./cadastrar.html"><li style="display: flex; justify-content: center; align-items: center; color: red; background: white; height: 40px; width: 250px; border-radius: 10px;">Cadastrar</li></a>
         <h1>Cadastrar</h1>
         <div class="square">
-            <form>
+            <form id="cadastroForm">
                 <div class="inputs">
-                    <input type="text" placeholder="Nome" name="nome" required>
-                    <input type="email" placeholder="Email" name="email" required>
-                    <input type="text" placeholder="Telefone" name="telefone">
+                    <input type="text" id="nome" placeholder="Nome" name="nome" required>
+                    <input type="email" id="email" placeholder="Email" name="email" required>
+                    <input type="text" id="telefone" placeholder="Telefone" name="telefone">
                 </div>
                 <div class="buttons">
-                    <button id="btncancelar" class="btncancelar">Cancelar</button>
-                    <button id="btnsalvar" class="btnsalvar">Salvar</button>
+                    <button type="button" id="btncancelar" class="btncancelar">Cancelar</button>
+                    <button type="submit" id="btnsalvar" class="btnsalvar">Salvar</button>
                 </div>
                 <div class="imguser">
                     <img src="style/user.png" alt="">
@@ -35,5 +32,6 @@
             </form>
         </div>
     </div>
+    <script src="cadastrar.js"></script>
 </body>
 </html>

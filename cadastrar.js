@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const password = document.getElementById('password').value.trim();
         const concierge = document.getElementById('concierge').checked;
 
-        // Validação simples dos campos
         if (!nome || !email || !telefone || !password) {
             alert('Todos os campos são obrigatórios');
             return;
@@ -22,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
             call: telefone,
             password: password,
             concierge: concierge,
-            tipo: true,  // Adicione outros campos conforme necessário
+            tipo: true,  
             apartamentosId: "000"
         };
 
@@ -43,11 +42,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     throw new Error(error.message || 'Erro ao cadastrar o usuário');
                 });
             }
-            return response.json();
+            return response.text().then(text => text ? JSON.parse(text) : {});
         })
         .then(newUser => {
             console.log('Usuário cadastrado com sucesso:', newUser);
-            window.location.href = './index.html'; // Redirecionar para a página inicial após o cadastro
+            alert('Usuário cadastrado com sucesso!');
+            window.location.href = './index.html';
         })
         .catch(error => {
             console.error('Erro ao cadastrar o usuário:', error);

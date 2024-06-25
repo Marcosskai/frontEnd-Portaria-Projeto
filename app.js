@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     fetch('http://localhost:3333/view-all', {
         headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNTA4NWJlMy0wNzViLTRjNjAtYTM3Ni1jMGRkY2JjYWI3ZmMiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4OTkyNTc0fQ.SvKqyRf3YZG8zTaItqSuXK0ljw5nNe6jXMf2RalyDfY' 
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNTA4NWJlMy0wNzViLTRjNjAtYTM3Ni1jMGRkY2JjYWI3ZmMiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4OTkyNTc0fQ.SvKqyRf3YZG8zTaItqSuXK0ljw5nNe6jXMf2RalyDfY'
         }
     })
     .then(response => {
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
     })
     .then(data => {
         console.log('Dados recebidos:', data);
- 
+
         if (!Array.isArray(data)) {
             throw new Error('Formato de dados inválido');
         }
@@ -64,12 +64,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 if (confirm(`Tem certeza que deseja excluir o usuário ${user.name}?`)) {
 
-                    fetch(`https://reqres.in/api/users/2/${user.id}`, {
-                        method: 'DELETE'
+                    fetch('http://localhost:3333/delete-user', {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNTA4NWJlMy0wNzViLTRjNjAtYTM3Ni1jMGRkY2JjYWI3ZmMiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4OTkyNTc0fQ.SvKqyRf3YZG8zTaItqSuXK0ljw5nNe6jXMf2RalyDfY'
+                        },
+                        body: JSON.stringify({ id: user.id })
                     })
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('Erro ao excluir o usuário');
+                            return response.json().then(error => {
+                                console.log('Erro detalhado:', error);
+                                throw new Error(error.message || 'Erro ao excluir o usuário');
+                            });
                         }
 
                         row.remove();
@@ -92,3 +100,4 @@ document.addEventListener("DOMContentLoaded", function() {
         userListBody.innerHTML = '<tr><td colspan="4">Erro ao carregar usuários.</td></tr>';
     });
 });
+    

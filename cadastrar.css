@@ -99,6 +99,7 @@ input {
     margin-top: 17px;
 }
 
+
 .checkbox-container {
     display: flex;
     align-items: center;
@@ -107,19 +108,35 @@ input {
     width: 500px;
     padding: 10px;
     border-radius: 10px;
-    justify-content: space-between;
 }
 
-.checkbox-container label {
-    font-size: 16px;
-    font-weight: 500;
-    margin-right: 10px;
+.checkbox {
+    display: none;
 }
 
-.checkbox-container input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    accent-color: #F6264D;
+.checkbox + label {
+    width: 50px;
+    height: 30px;
+    display: block;
+    padding: 2px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #EEEEEE;
+}
+
+.checkbox + label::after {
+    content: '';
+    display: block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: white;
+    transition: 0.5s ease all;
+}
+
+.checkbox:checked + label::after {
+    background-color: #F6264D;
+    transform: translateX(20px); /* Este valor pode ser ajustado conforme necessário */
 }
 
 

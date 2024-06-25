@@ -7,9 +7,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const nome = document.getElementById('nome').value.trim();
         const email = document.getElementById('email').value.trim();
         const telefone = document.getElementById('telefone').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const concierge = document.getElementById('concierge').checked;
 
         // Validação simples dos campos
-        if (!nome || !email || !telefone) {
+        if (!nome || !email || !telefone || !password) {
             alert('Todos os campos são obrigatórios');
             return;
         }
@@ -17,7 +19,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const userData = {
             name: nome,
             email: email,
-            call: telefone
+            call: telefone,
+            password: password,
+            concierge: concierge,
+            tipo: true,  // Adicione outros campos conforme necessário
+            apartamentosId: "000"
         };
 
         console.log('Dados do usuário a serem enviados:', userData);

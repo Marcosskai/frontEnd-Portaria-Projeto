@@ -41,7 +41,7 @@ li {
     align-items: flex-start;
     justify-content: center;
     width: 1350px;
-    height: 700px;
+    height: 682px;
     background: #ffffff;
     position: relative;
     top: 304px;
@@ -75,7 +75,7 @@ thead th {
 }
 
 th, td {
-    padding: 22px 102px;
+    padding: 22px 98px;
 }
 
 td {

@@ -136,8 +136,7 @@ input {
 
 .checkbox:checked + label::after {
     background-color: #F6264D;
-    transform: translateX(20px); /* Este valor pode ser ajustado conforme necessário */
-}
+    transform: translateX(20px); 
 
 
 .imguser {

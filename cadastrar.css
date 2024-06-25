@@ -104,14 +104,18 @@ input {
     display: flex;
     align-items: center;
     margin-top: 40px;
-    background-color: #EEEEEE;
+    background-color: #ffffff;
     width: 500px;
-    padding: 10px;
+    padding: 0;
     border-radius: 10px;
 }
 
 .checkbox {
     display: none;
+}
+
+span {
+    margin-left: 10px;
 }
 
 .checkbox + label {
@@ -130,14 +134,14 @@ input {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     transition: 0.5s ease all;
 }
 
 .checkbox:checked + label::after {
     background-color: #F6264D;
     transform: translateX(20px); 
-
+}
 
 .imguser {
     display: flex;

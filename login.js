@@ -19,18 +19,19 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         if (!response.ok) {
             return response.json().then(error => {
                 console.log('Erro detalhado:', error);
-                throw new Error(error.message || 'Invalid email or password.');
+                throw new Error(error.message || 'Invalid email or password.1');
             });
         }
         return response.json();
     })
     .then(data => {
         console.log('Dados recebidos da API:', data);
-        if (data.success) {
+        if (data.token) {
             console.log('Login bem-sucedido:', data);
+            
             window.location.href = 'index.html';
         } else {
-            errorMessage.textContent = data.message || 'Invalid email or password.';
+            errorMessage.textContent = data.message || 'Invalid email or password.2';
         }
     })
     .catch(error => {

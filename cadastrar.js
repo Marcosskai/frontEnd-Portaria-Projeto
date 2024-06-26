@@ -1,5 +1,19 @@
 document.addEventListener("DOMContentLoaded", function() {
     const cadastroForm = document.getElementById('cadastroForm');
+    const passwordField = document.getElementById('password');
+    const conciergeCheckbox = document.getElementById('concierge');
+
+    // Inicialmente esconde o campo de senha
+    passwordField.classList.add('hidden');
+
+    // Mostra/esconde o campo de senha com base no estado do checkbox
+    conciergeCheckbox.addEventListener('change', function() {
+        if (conciergeCheckbox.checked) {
+            passwordField.classList.remove('hidden');
+        } else {
+            passwordField.classList.add('hidden');
+        }
+    });
 
     cadastroForm.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -8,9 +22,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const email = document.getElementById('email').value.trim();
         const telefone = document.getElementById('telefone').value.trim();
         const password = document.getElementById('password').value.trim();
-        const concierge = document.getElementById('concierge').checked;
+        const concierge = conciergeCheckbox.checked;
 
-        if (!nome || !email || !telefone || !password) {
+        if (!nome || !email || !telefone || (concierge && !password)) {
             alert('Todos os campos são obrigatórios');
             return;
         }

@@ -3,10 +3,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const passwordField = document.getElementById('password');
     const conciergeCheckbox = document.getElementById('concierge');
 
-    // Inicialmente esconde o campo de senha
+
     passwordField.classList.add('hidden');
 
-    // Mostra/esconde o campo de senha com base no estado do checkbox
+
     conciergeCheckbox.addEventListener('change', function() {
         if (conciergeCheckbox.checked) {
             passwordField.classList.remove('hidden');

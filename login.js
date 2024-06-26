@@ -19,7 +19,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         if (!response.ok) {
             return response.json().then(error => {
                 console.log('Erro detalhado:', error);
-                throw new Error(error.message || 'Invalid email or password.1');
+                throw new Error(error.message || 'E-mail ou Senha inválidos.');
             });
         }
         return response.json();
@@ -28,7 +28,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         console.log('Dados recebidos da API:', data);
         if (data.token) {
             console.log('Login bem-sucedido:', data);
-            
+
             window.location.href = 'index.html';
         } else {
             errorMessage.textContent = data.message || 'Invalid email or password.2';
@@ -36,6 +36,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     })
     .catch(error => {
         console.error('Erro ao fazer login:', error);
-        errorMessage.textContent = 'An error occurred. Please try again later.';
+        errorMessage.textContent = 'E-mail ou Senha inválidos.';
     });
 });

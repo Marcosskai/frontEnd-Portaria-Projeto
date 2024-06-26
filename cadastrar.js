@@ -3,15 +3,16 @@ document.addEventListener("DOMContentLoaded", function() {
     const passwordField = document.getElementById('password');
     const conciergeCheckbox = document.getElementById('concierge');
 
-
-    passwordField.classList.add('hidden');
-
+    // Remover o atributo required inicialmente
+    passwordField.removeAttribute('required');
 
     conciergeCheckbox.addEventListener('change', function() {
         if (conciergeCheckbox.checked) {
             passwordField.classList.remove('hidden');
+            passwordField.setAttribute('required', 'required');
         } else {
             passwordField.classList.add('hidden');
+            passwordField.removeAttribute('required');
         }
     });
 
@@ -21,10 +22,15 @@ document.addEventListener("DOMContentLoaded", function() {
         const nome = document.getElementById('nome').value.trim();
         const email = document.getElementById('email').value.trim();
         const telefone = document.getElementById('telefone').value.trim();
-        const password = document.getElementById('password').value.trim();
+        let password = document.getElementById('password').value.trim();
         const concierge = conciergeCheckbox.checked;
 
-        if (!nome || !email || !telefone || (concierge && !password)) {
+        // Se concierge não estiver marcado, defina password como uma string vazia
+        if (!concierge) {
+            password = "";
+        }
+
+        if (!nome || !email || !telefone) {
             alert('Todos os campos são obrigatórios');
             return;
         }

@@ -15,6 +15,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         body: JSON.stringify({ email: email, password: password })
     })
     .then(response => {
+        console.log('Resposta da API:', response);
         if (!response.ok) {
             return response.json().then(error => {
                 console.log('Erro detalhado:', error);
@@ -24,6 +25,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         return response.json();
     })
     .then(data => {
+        console.log('Dados recebidos da API:', data);
         if (data.success) {
             console.log('Login bem-sucedido:', data);
             window.location.href = 'index.html';

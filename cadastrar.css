@@ -158,6 +158,8 @@ span {
     width: 124px;
     padding: 6px;
     margin-left: -511px;
+    position: relative;
+    top: 265px;
 }
 
 .buttons {

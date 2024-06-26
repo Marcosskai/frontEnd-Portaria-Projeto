@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     fetch('http://localhost:3333/view-all', {
         headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNTA4NWJlMy0wNzViLTRjNjAtYTM3Ni1jMGRkY2JjYWI3ZmMiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4OTkyNTc0fQ.SvKqyRf3YZG8zTaItqSuXK0ljw5nNe6jXMf2RalyDfY'
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNjU4Y2MzZi0zY2E1LTQxYTctODIxMS1kYWVjMGY1MDMwMDIiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE5NDQwMDU2fQ.z1-duyTvjYfZeOqmCAMm7atZEU2IIrtij8Gl8-hGceg'
         }
     })
     .then(response => {

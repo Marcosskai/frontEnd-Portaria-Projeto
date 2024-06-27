@@ -75,7 +75,7 @@ thead th {
 }
 
 th, td {
-    padding: 22px 80px;
+    padding: 22px 54px;
 }
 
 td {
@@ -154,10 +154,16 @@ tbody tr:hover {
 }
 
 .actions-cell button {
-    margin-left: 10px;
+    margin-left: 22px;
 }
 td img {
     position: relative;
-    top: 4px;
+    top: 3px;
 
+}
+
+td button {
+    all: unset;
+    color: #F6264D;
+    cursor: pointer;
 }

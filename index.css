@@ -166,4 +166,5 @@ td button {
     all: unset;
     color: #F6264D;
     cursor: pointer;
+    margin-left: 4px;
 }

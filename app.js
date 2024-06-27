@@ -31,17 +31,16 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault();
         const userId = editUserId.value;
         const updatedUser = {
-            id: userId,
             name: editUserName.value,
             email: editUserEmail.value,
             call: editUserPhone.value
         };
 
-        fetch('http://localhost:3333/edit-user', {
+        fetch(`http://localhost:3333/update-users/${editUserEmail.value}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjg4ZDE1ZS01ZGUzLTQ5ZTQtYTgxYS1jNGMyMjYzZTY4ZjQiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE5NDg5NTk4fQ.B6psuMuYdElOGczd3u0AG5iWlxDjgj5vSVUgF23JgU8'
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNTA4NWJlMy0wNzViLTRjNjAtYTM3Ni1jMGRkY2JjYWI3ZmMiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4OTkyNTc0fQ.SvKqyRf3YZG8zTaItqSuXK0ljw5nNe6jXMf2RalyDfY'
             },
             body: JSON.stringify(updatedUser)
         })
@@ -54,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return response.json();
         })
         .then(updatedUser => {
-            const userRow = document.querySelector(`tr[data-user-id='${updatedUser.id}']`);
+            const userRow = document.querySelector(`tr[data-user-id='${userId}']`);
             userRow.querySelector('.user-name').textContent = updatedUser.name;
             userRow.querySelector('.user-email').textContent = updatedUser.email;
             userRow.querySelector('.user-phone').textContent = updatedUser.call;
@@ -68,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     fetch('http://localhost:3333/view-all', {
         headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjg4ZDE1ZS01ZGUzLTQ5ZTQtYTgxYS1jNGMyMjYzZTY4ZjQiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE5NDg5NTk4fQ.B6psuMuYdElOGczd3u0AG5iWlxDjgj5vSVUgF23JgU8'
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNTA4NWJlMy0wNzViLTRjNjAtYTM3Ni1jMGRkY2JjYWI3ZmMiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4OTkyNTc0fQ.SvKqyRf3YZG8zTaItqSuXK0ljw5nNe6jXMf2RalyDfY'
         }
     })
     .then(response => {
@@ -131,7 +130,6 @@ document.addEventListener("DOMContentLoaded", function() {
             deleteIcon.style.height = '16px';
             deleteIcon.style.cursor = 'pointer';
             deleteIcon.style.marginLeft = '50px';
-            deleteIcon.style
             deleteIcon.addEventListener('click', () => {
                 if (confirm(`Tem certeza que deseja excluir o usuário ${user.name}?`)) {
                     fetch('http://localhost:3333/delete-user', {
@@ -144,10 +142,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     })
                     .then(response => {
                         if (!response.ok) {
-                            return response.json().then(error => {
-                                throw new Error(error.message || 'Erro ao excluir o usuário');
-                            });
+                            throw new Error('Erro ao excluir o usuário');
                         }
+                        return response.json();
+                    })
+                    .then(() => {
                         row.remove();
                     })
                     .catch(error => {
@@ -156,15 +155,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     });
                 }
             });
-
             actionsCell.appendChild(deleteIcon);
-            row.appendChild(actionsCell);
 
+            row.appendChild(actionsCell);
             userListBody.appendChild(row);
         });
     })
     .catch(error => {
-        console.error('Erro ao carregar usuários:', error);
-        alert('Erro ao carregar usuários');
+        console.error('Erro ao buscar os usuários:', error);
+        alert('Erro ao buscar os usuários');
     });
 });

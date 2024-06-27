@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNTA4NWJlMy0wNzViLTRjNjAtYTM3Ni1jMGRkY2JjYWI3ZmMiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4OTkyNTc0fQ.SvKqyRf3YZG8zTaItqSuXK0ljw5nNe6jXMf2RalyDfY' 
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjg4ZDE1ZS01ZGUzLTQ5ZTQtYTgxYS1jNGMyMjYzZTY4ZjQiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE5NDg5NTk4fQ.B6psuMuYdElOGczd3u0AG5iWlxDjgj5vSVUgF23JgU8' 
             },
             body: JSON.stringify(userData)
         })

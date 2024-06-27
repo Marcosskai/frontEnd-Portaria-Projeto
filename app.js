@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function() {
             row.dataset.userId = user.id;
 
             const nameCell = document.createElement('td');
-            nameCell.className = 'user-name';
+            nameCell.className = 'user-name';   
             nameCell.style.display = 'flex';
             nameCell.style.alignItems = 'center';
 

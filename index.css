@@ -81,7 +81,7 @@ td {
     border-top: 1px solid #ddd;
     font-size: 14px;
     position: relative;
-    top: -0;
+    top: -1px;
     line-height: 21px;
 }
 

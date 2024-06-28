@@ -9,7 +9,7 @@ body * {
 }
 
 body {
-    background-color: #F6264D;
+    background-color: crimson;
     margin: auto;
 }
 
@@ -23,10 +23,10 @@ body {
 
 .login-container {
     background-color: #F6264D;
-    padding: 20px;
+    padding: 37px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 380px;
+    box-shadow: 0 0 100px rgba(255, 255, 255, 0.2);
+    width: 456px;
     text-align: center;
 }
 

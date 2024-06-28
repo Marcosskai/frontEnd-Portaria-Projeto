@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const userListBody = document.getElementById('user-list-body');
     const editModal = document.getElementById('editModal');
     const closeModal = document.getElementsByClassName('close')[0];
@@ -36,133 +36,132 @@ document.addEventListener("DOMContentLoaded", function() {
             call: editUserPhone.value
         };
 
-        fetch(`http://localhost:3333/update-users/${editUserEmail.value}`, {
+        fetch(`http://localhost:3333/update-users/${userId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNTA4NWJlMy0wNzViLTRjNjAtYTM3Ni1jMGRkY2JjYWI3ZmMiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4OTkyNTc0fQ.SvKqyRf3YZG8zTaItqSuXK0ljw5nNe6jXMf2RalyDfY'
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3OTc0NGRmMy1iMjM2LTRkZTAtODU5ZC05YjlhZjdiOGU0N2YiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4MjE4NTgzfQ.EZHbJzS5y8g8aaNaKn32rI2qicheStHrRdi50UbOIig'
             },
             body: JSON.stringify(updatedUser)
         })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(error => {
-                    throw new Error(error.message || 'Erro ao editar o usuário');
-                });
-            }
-            return response.json();
-        })
-        .then(updatedUser => {
-            const userRow = document.querySelector(`tr[data-user-id='${userId}']`);
-            userRow.querySelector('.user-name').textContent = updatedUser.name;
-            userRow.querySelector('.user-email').textContent = updatedUser.email;
-            userRow.querySelector('.user-phone').textContent = updatedUser.call;
-            closeEditModal();
-        })
-        .catch(error => {
-            console.error('Erro ao editar o usuário:', error);
-            alert('Erro ao editar o usuário');
-        });
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(error => {
+                        throw new Error(error.message || 'Erro ao editar o usuário');
+                    });
+                }
+                return response.json();
+            })
+            .then(updatedUser => {
+                const userRow = document.querySelector(`tr[data-user-id='${userId}']`);
+                userRow.querySelector('.user-name').textContent = updatedUser.name;
+                userRow.querySelector('.user-email').textContent = updatedUser.email;
+                userRow.querySelector('.user-phone').textContent = updatedUser.call;
+                closeEditModal();
+            })
+            .catch(error => {
+                console.error('Erro ao editar o usuário:', error);
+                alert('Erro ao editar o usuário');
+            });
     });
 
     fetch('http://localhost:3333/view-all', {
         headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNTA4NWJlMy0wNzViLTRjNjAtYTM3Ni1jMGRkY2JjYWI3ZmMiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4OTkyNTc0fQ.SvKqyRf3YZG8zTaItqSuXK0ljw5nNe6jXMf2RalyDfY'
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3OTc0NGRmMy1iMjM2LTRkZTAtODU5ZC05YjlhZjdiOGU0N2YiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4MjE4NTgzfQ.EZHbJzS5y8g8aaNaKn32rI2qicheStHrRdi50UbOIig'
         }
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erro na resposta da rede');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (!Array.isArray(data)) {
-            throw new Error('Formato de dados inválido');
-        }
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na resposta da rede');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (!Array.isArray(data)) {
+                throw new Error('Formato de dados inválido');
+            }
 
-        data.forEach(user => {
-            const row = document.createElement('tr');
-            row.dataset.userId = user.id;
+            data.forEach(user => {
+                const row = document.createElement('tr');
+                row.dataset.userId = user.id;
 
-            const nameCell = document.createElement('td');
-            nameCell.className = 'user-name';   
-            nameCell.style.display = 'flex';
-            nameCell.style.alignItems = 'center';
+                const nameCell = document.createElement('td');
+                nameCell.className = 'user-name';
+                nameCell.style.display = 'flex';
+                nameCell.style.alignItems = 'center';
 
-            const icon = document.createElement('img');
-            icon.src = 'style/Vector.png';
-            icon.alt = 'Ícone do usuário';
-            icon.style.padding = '10px';
-            icon.style.width = '43px';
-            icon.style.height = '42px';
-            icon.style.marginRight = '20px';
-            icon.style.backgroundColor = 'rgb(217, 217, 217)';
-            icon.style.borderRadius = '50px';
+                const icon = document.createElement('img');
+                icon.src = 'style/Vector.png';
+                icon.alt = 'Ícone do usuário';
+                icon.style.padding = '10px';
+                icon.style.width = '43px';
+                icon.style.height = '42px';
+                icon.style.marginRight = '20px';
+                icon.style.backgroundColor = 'rgb(217, 217, 217)';
+                icon.style.borderRadius = '50px';
 
-            nameCell.appendChild(icon);
-            nameCell.appendChild(document.createTextNode(user.name));
-            row.appendChild(nameCell);
+                nameCell.appendChild(icon);
+                nameCell.appendChild(document.createTextNode(user.name));
+                row.appendChild(nameCell);
 
-            const emailCell = document.createElement('td');
-            emailCell.className = 'user-email';
-            emailCell.textContent = user.email;
-            row.appendChild(emailCell);
+                const emailCell = document.createElement('td');
+                emailCell.className = 'user-email';
+                emailCell.textContent = user.email;
+                row.appendChild(emailCell);
 
-            const phoneCell = document.createElement('td');
-            phoneCell.className = 'user-phone';
-            phoneCell.textContent = user.call;
-            row.appendChild(phoneCell);
+                const phoneCell = document.createElement('td');
+                phoneCell.className = 'user-phone';
+                phoneCell.textContent = user.call;
+                row.appendChild(phoneCell);
 
-            const actionsCell = document.createElement('td');
+                const actionsCell = document.createElement('td');
 
-            const editButton = document.createElement('button');
-            editButton.textContent = 'Editar';
-            editButton.addEventListener('click', () => {
-                openEditModal(user);
+                const editButton = document.createElement('button');
+                editButton.textContent = 'Editar';
+                editButton.addEventListener('click', () => {
+                    openEditModal(user);
+                });
+                actionsCell.appendChild(editButton);
+
+                const deleteIcon = document.createElement('img');
+                deleteIcon.src = 'style/delete.png';
+                deleteIcon.alt = 'Excluir usuário';
+                deleteIcon.style.width = '16px';
+                deleteIcon.style.height = '16px';
+                deleteIcon.style.cursor = 'pointer';
+                deleteIcon.style.marginLeft = '50px';
+                deleteIcon.addEventListener('click', () => {
+                    if (confirm(`Tem certeza que deseja excluir o usuário ${user.name}?`)) {
+                        fetch('http://localhost:3333/delete-user', {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3OTc0NGRmMy1iMjM2LTRkZTAtODU5ZC05YjlhZjdiOGU0N2YiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4MjE4NTgzfQ.EZHbJzS5y8g8aaNaKn32rI2qicheStHrRdi50UbOIig'
+                            },
+                            body: JSON.stringify({ id: user.id })
+                        })
+                            .then(response => {
+                                if (response.status !== 204) {
+                                    return response.json().then(error => {
+                                        throw new Error(error.message || 'Erro ao excluir o usuário');
+                                    });
+                                }
+                                row.remove();
+                            })
+                            .catch(error => {
+                                console.error('Erro ao excluir o usuário:', error);
+                                alert('Erro ao excluir o usuário');
+                            });
+                    }
+                });
+                actionsCell.appendChild(deleteIcon);
+
+                row.appendChild(actionsCell);
+                userListBody.appendChild(row);
             });
-            actionsCell.appendChild(editButton);
-
-            const deleteIcon = document.createElement('img');
-            deleteIcon.src = 'style/delete.png';
-            deleteIcon.alt = 'Excluir usuário';
-            deleteIcon.style.width = '16px';
-            deleteIcon.style.height = '16px';
-            deleteIcon.style.cursor = 'pointer';
-            deleteIcon.style.marginLeft = '50px';
-            deleteIcon.addEventListener('click', () => {
-                if (confirm(`Tem certeza que deseja excluir o usuário ${user.name}?`)) {
-                    fetch('http://localhost:3333/delete-user', {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNTA4NWJlMy0wNzViLTRjNjAtYTM3Ni1jMGRkY2JjYWI3ZmMiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4OTkyNTc0fQ.SvKqyRf3YZG8zTaItqSuXK0ljw5nNe6jXMf2RalyDfY'
-                        },
-                        body: JSON.stringify({ id: user.id })
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Erro ao excluir o usuário');
-                        }
-                        return response.json();
-                    })
-                    .then(() => {
-                        row.remove();
-                    })
-                    .catch(error => {
-                        console.error('Erro ao excluir o usuário:', error);
-                        alert('Erro ao excluir o usuário');
-                    });
-                }
-            });
-            actionsCell.appendChild(deleteIcon);
-
-            row.appendChild(actionsCell);
-            userListBody.appendChild(row);
+        })
+        .catch(error => {
+            console.error('Erro ao buscar os usuários:', error);
+            alert('Erro ao buscar os usuários');
         });
-    })
-    .catch(error => {
-        console.error('Erro ao buscar os usuários:', error);
-        alert('Erro ao buscar os usuários');
-    });
 });

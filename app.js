@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!response.ok) {
                 throw new Error('Erro ao editar o usuário');
             }
-        
+
             const contentType = response.headers.get('content-type');
             if (contentType && contentType.includes('application/json')) {
                 return response.json();
@@ -62,12 +62,12 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!data.success) {
                 throw new Error('Resposta da API inválida após atualização');
             }
-        
+
             const userRow = document.querySelector(`tr[data-user-id='${userId}']`);
             const userNameCell = userRow.querySelector('.user-name');
             // Limpar o conteúdo atual antes de atualizar
             userNameCell.innerHTML = ''; // Limpa o conteúdo atual para reconstruir
-        
+
             // Recriar a imagem e o texto do nome atualizado
             const icon = document.createElement('img');
             icon.src = 'style/Vector.png';
@@ -80,19 +80,19 @@ document.addEventListener("DOMContentLoaded", function () {
             icon.style.borderRadius = '50px';
             userNameCell.appendChild(icon);
             userNameCell.appendChild(document.createTextNode(updatedUser.name));
-        
+
             // Atualizar os outros campos
             userRow.querySelector('.user-email').textContent = updatedUser.email;
             userRow.querySelector('.user-phone').textContent = updatedUser.call;
-        
-            // Fechar o modal sem recarregar a página
+
+            // Fechar o modal e mostrar o alerta de sucesso
             closeEditModal();
+            alert('Usuário atualizado com sucesso!');
         })
         .catch(error => {
             console.error('Erro ao editar o usuário:', error);
             alert('Erro ao editar o usuário');
         });
-        
     });
 
     fetch('http://localhost:3333/view-all', {

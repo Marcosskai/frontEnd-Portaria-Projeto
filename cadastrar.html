@@ -26,10 +26,11 @@
                     <input type="password" id="password" placeholder="Password" name="password" class="hidden" autocomplete="current-password">
                     
                     <div class="checkbox-container">
-                        <input type="checkbox" id="concierge" name="concierge" class="checkbox">
+                        <input type="checkbox" id="concierge" name="concierge" class="checkbox" onclick="toggleTipoSelect()">
                         <label for="concierge"></label>
                         <span>Concierge</span>
-                        <div class="select-container">
+                    
+                        <div id="tipo-container" class="select-container" style="display: none;">
                             <label for="tipo" style="margin-left: 155px; text-align: center;">Tipo:</label>
                             <select id="tipo" name="tipo" required style="all: unset; background-color:#F6264D; color: white; border-radius: 10px; text-align: center;">
                                 <option value="">Escolha uma opção</option>
@@ -37,8 +38,26 @@
                                 <option value="visitante">Visitante</option>
                             </select>
                         </div>
-                    
                     </div>
+                    
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            var tipoContainer = document.getElementById("tipo-container");
+                            if (!document.getElementById("concierge").checked) {
+                                tipoContainer.style.display = "block";
+                            }
+                        });
+                    
+                        function toggleTipoSelect() {
+                            var tipoContainer = document.getElementById("tipo-container");
+                            if (!document.getElementById("concierge").checked) {
+                                tipoContainer.style.display = "block";
+                            } else {
+                                tipoContainer.style.display = "none";
+                            }
+                        }
+                    </script>
+                    
                 </div>
                 <div class="buttons">
                     <button style="cursor: pointer;" type="button" id="btncancelar" class="btncancelar">Cancelar</button>

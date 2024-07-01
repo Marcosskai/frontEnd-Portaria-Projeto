@@ -156,8 +156,8 @@ document.addEventListener("DOMContentLoaded", function () {
             row.appendChild(phoneCell);
 
             const apartamentosIdCell = document.createElement('td');
-            apartamentosIdCell.className = 'user-apartamentosId';
-            apartamentosIdCell.textContent = user.apartamentosId; 
+            apartamentosIdCell.className = 'user-apartamentosId'; 
+            apartamentosIdCell.textContent = user.apartamentosId;
             row.appendChild(apartamentosIdCell);
 
             const actionsCell = document.createElement('td');

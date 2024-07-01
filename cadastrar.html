@@ -24,10 +24,20 @@
                     <input type="text" id="telefone" placeholder="Telefone" name="telefone" required>
                     <input type="text" id="apartamento" placeholder="Apartamento" name="apartamento" autocomplete="off" required>
                     <input type="password" id="password" placeholder="Password" name="password" class="hidden" autocomplete="current-password">
+                    
                     <div class="checkbox-container">
                         <input type="checkbox" id="concierge" name="concierge" class="checkbox">
                         <label for="concierge"></label>
                         <span>Concierge</span>
+                        <div class="select-container">
+                            <label for="tipo" style="margin-left: 155px;">Tipo:</label>
+                            <select id="tipo" name="tipo" required>
+                                <option value="">Escolha uma opção</option>
+                                <option value="morador">Morador</option>
+                                <option value="visitante">Visitante</option>
+                            </select>
+                        </div>
+                    
                     </div>
                 </div>
                 <div class="buttons">

@@ -1,18 +1,27 @@
 document.addEventListener("DOMContentLoaded", function () {
     const userListBody = document.getElementById('user-list-body');
     const editModal = document.getElementById('editModal');
-    const closeModal = document.getElementsByClassName('close')[0];
+    const closeModal = document.getElementsByClassName('close')[0]; // Corrigido para const
+
+    // Verificar se o elemento closeModal foi encontrado
+    if (!closeModal) {
+        console.error('Elemento .close não encontrado.');
+        return;
+    }
+
     const editUserForm = document.getElementById('editUserForm');
     const editUserId = document.getElementById('editUserId');
     const editUserName = document.getElementById('editUserName');
     const editUserEmail = document.getElementById('editUserEmail');
     const editUserPhone = document.getElementById('editUserPhone');
+    const editUserApartments = document.getElementById('editUserApartments'); // Corrigido para editUserApartments
 
     function openEditModal(user) {
         editUserId.value = user.id;
         editUserName.value = user.name;
         editUserEmail.value = user.email;
         editUserPhone.value = user.call;
+        editUserApartments.value = user.apartamentosId; // Corrigido para apartamentosId
         editModal.style.display = "block";
     }
 
@@ -35,7 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
             id: userId,
             name: editUserName.value,
             email: editUserEmail.value,
-            call: editUserPhone.value
+            call: editUserPhone.value,
+            apartamentosId: editUserApartments.value // Corrigido para apartamentosId
         };
 
         fetch('http://localhost:3333/update-users', {
@@ -84,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Atualizar os outros campos
             userRow.querySelector('.user-email').textContent = updatedUser.email;
             userRow.querySelector('.user-phone').textContent = updatedUser.call;
+            userRow.querySelector('.user-apartamentosId').textContent = updatedUser.apartamentosId; // Corrigido para user-apartamentosId
 
             // Fechar o modal e mostrar o alerta de sucesso
             closeEditModal();
@@ -109,7 +120,9 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
         if (!Array.isArray(data)) {
             throw new Error('Formato de dados inválido');
+            
         }
+        console.log(data)
 
         data.forEach(user => {
             const row = document.createElement('tr');
@@ -141,6 +154,11 @@ document.addEventListener("DOMContentLoaded", function () {
             phoneCell.className = 'user-phone';
             phoneCell.textContent = user.call;
             row.appendChild(phoneCell);
+
+            const apartamentosIdCell = document.createElement('td');
+            apartamentosIdCell.className = 'user-apartamentosId';
+            apartamentosIdCell.textContent = user.apartamentosId; // Corrigido para apartamentosId
+            row.appendChild(apartamentosIdCell);
 
             const actionsCell = document.createElement('td');
             const editButton = document.createElement('button');

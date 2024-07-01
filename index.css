@@ -85,6 +85,7 @@ td {
 
 tbody tr:hover {
     background-color: #EEEEEE;
+    color: #F6264D;
 }
 
 .img {
@@ -163,7 +164,7 @@ tbody tr:hover {
 
 td img {
     position: relative;
-    top: 3px;
+    top: 0px;
 
 }
 

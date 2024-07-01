@@ -69,8 +69,7 @@ table {
 thead th {
     font-size: 16px;
     background-color: #EEEEEE; 
-    position: sticky;
-    top: 0;
+
 }
 
 th, td {
@@ -82,7 +81,6 @@ td {
     font-size: 14px;
     position: relative;
     top: -1px;
-    line-height: 21px;
 }
 
 tbody tr:hover {

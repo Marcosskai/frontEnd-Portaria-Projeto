@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
             deleteIcon.style.width = '16px';
             deleteIcon.style.height = '16px';
             deleteIcon.style.cursor = 'pointer';
-            deleteIcon.style.marginLeft = '50px';
+            deleteIcon.style.marginLeft = '33px';
             deleteIcon.addEventListener('click', () => {
                 if (confirm(`Tem certeza que deseja excluir o usuário ${user.name}?`)) {
                     fetch('http://localhost:3333/delete-user', {

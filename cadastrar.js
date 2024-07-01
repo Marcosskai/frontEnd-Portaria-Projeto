@@ -4,12 +4,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const conciergeCheckbox = document.getElementById('concierge');
     const btncancelar = document.getElementById('btncancelar');
 
-    // Verificar se os elementos existem
+   
     if (cadastroForm && passwordField && conciergeCheckbox && btncancelar) {
-        // Adicionar atributo autocomplete ao campo de senha
+       
         passwordField.setAttribute('autocomplete', 'current-password');
 
-        // Remover o atributo required inicialmente
+        
         passwordField.removeAttribute('required');
 
         conciergeCheckbox.addEventListener('change', function () {
@@ -28,17 +28,17 @@ document.addEventListener("DOMContentLoaded", function () {
             const nome = document.getElementById('nome').value.trim();
             const email = document.getElementById('email').value.trim();
             const telefone = document.getElementById('telefone').value.trim();
-            const apartamento = document.getElementById('apartamento').value.trim(); // Corrigido para 'apartamento'
+            const apartamento = document.getElementById('apartamento').value.trim(); 
 
             let password = document.getElementById('password').value.trim();
             const concierge = conciergeCheckbox.checked;
 
-            // Se concierge não estiver marcado, defina password como uma string vazia
+           
             if (!concierge) {
                 password = "";
             }
 
-            if (!nome || !email || !telefone || !apartamento) { // Corrigido para 'apartamento'
+            if (!nome || !email || !telefone || !apartamento) {
                 alert('Todos os campos são obrigatórios');
                 return;
             }
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 name: nome,
                 email: email,
                 call: telefone,
-                apartamentosId: apartamento, // Corrigido para 'apartamentosId'
+                apartamentosId: apartamento,
                 password: password,
                 concierge: concierge,
                 tipo: true,

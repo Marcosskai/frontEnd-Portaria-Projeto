@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     const userListBody = document.getElementById('user-list-body');
     const editModal = document.getElementById('editModal');
-    const closeModal = document.getElementsByClassName('close')[0]; // Corrigido para const
+    const closeModal = document.getElementsByClassName('close')[0]; 
 
-    // Verificar se o elemento closeModal foi encontrado
+    
     if (!closeModal) {
         console.error('Elemento .close não encontrado.');
         return;
@@ -14,14 +14,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const editUserName = document.getElementById('editUserName');
     const editUserEmail = document.getElementById('editUserEmail');
     const editUserPhone = document.getElementById('editUserPhone');
-    const editUserApartments = document.getElementById('editUserApartments'); // Corrigido para editUserApartments
+    const editUserApartments = document.getElementById('editUserApartments'); 
 
     function openEditModal(user) {
         editUserId.value = user.id;
         editUserName.value = user.name;
         editUserEmail.value = user.email;
         editUserPhone.value = user.call;
-        editUserApartments.value = user.apartamentosId; // Corrigido para apartamentosId
+        editUserApartments.value = user.apartamentosId;
         editModal.style.display = "block";
     }
 
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
             name: editUserName.value,
             email: editUserEmail.value,
             call: editUserPhone.value,
-            apartamentosId: editUserApartments.value // Corrigido para apartamentosId
+            apartamentosId: editUserApartments.value 
         };
 
         fetch('http://localhost:3333/update-users', {
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (contentType && contentType.includes('application/json')) {
                 return response.json();
             } else {
-                return { success: true }; // Retornar um objeto indicando sucesso se não houver conteúdo JSON
+                return { success: true }; 
             }
         })
         .then(data => {
@@ -75,10 +75,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const userRow = document.querySelector(`tr[data-user-id='${userId}']`);
             const userNameCell = userRow.querySelector('.user-name');
-            // Limpar o conteúdo atual antes de atualizar
-            userNameCell.innerHTML = ''; // Limpa o conteúdo atual para reconstruir
+            
+            userNameCell.innerHTML = ''; 
 
-            // Recriar a imagem e o texto do nome atualizado
+           
             const icon = document.createElement('img');
             icon.src = 'style/Vector.png';
             icon.alt = 'Ícone do usuário';
@@ -91,12 +91,12 @@ document.addEventListener("DOMContentLoaded", function () {
             userNameCell.appendChild(icon);
             userNameCell.appendChild(document.createTextNode(updatedUser.name));
 
-            // Atualizar os outros campos
+           
             userRow.querySelector('.user-email').textContent = updatedUser.email;
             userRow.querySelector('.user-phone').textContent = updatedUser.call;
-            userRow.querySelector('.user-apartamentosId').textContent = updatedUser.apartamentosId; // Corrigido para user-apartamentosId
+            userRow.querySelector('.user-apartamentosId').textContent = updatedUser.apartamentosId; 
 
-            // Fechar o modal e mostrar o alerta de sucesso
+          
             closeEditModal();
             alert('Usuário atualizado com sucesso!');
         })
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const apartamentosIdCell = document.createElement('td');
             apartamentosIdCell.className = 'user-apartamentosId';
-            apartamentosIdCell.textContent = user.apartamentosId; // Corrigido para apartamentosId
+            apartamentosIdCell.textContent = user.apartamentosId; 
             row.appendChild(apartamentosIdCell);
 
             const actionsCell = document.createElement('td');

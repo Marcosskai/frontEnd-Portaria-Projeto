@@ -4,12 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const conciergeCheckbox = document.getElementById('concierge');
     const btncancelar = document.getElementById('btncancelar');
 
-   
     if (cadastroForm && passwordField && conciergeCheckbox && btncancelar) {
-       
         passwordField.setAttribute('autocomplete', 'current-password');
-
-        
         passwordField.removeAttribute('required');
 
         conciergeCheckbox.addEventListener('change', function () {
@@ -28,19 +24,29 @@ document.addEventListener("DOMContentLoaded", function () {
             const nome = document.getElementById('nome').value.trim();
             const email = document.getElementById('email').value.trim();
             const telefone = document.getElementById('telefone').value.trim();
-            const apartamento = document.getElementById('apartamento').value.trim(); 
-
+            const apartamento = document.getElementById('apartamento').value.trim();
             let password = document.getElementById('password').value.trim();
             const concierge = conciergeCheckbox.checked;
 
-           
+            // Captura o valor selecionado no select
+            const tipoSelect = document.getElementById('tipo');
+            const tipoSelecionado = tipoSelect.value;
+
+            // Ajusta a variável password caso concierge não esteja marcado
             if (!concierge) {
                 password = "";
             }
 
+            // Validação dos campos
             if (!nome || !email || !telefone || !apartamento) {
                 alert('Todos os campos são obrigatórios');
                 return;
+            }
+
+            // Define o valor de tipo como true se for "morador" e false se for "visitante"
+            let tipoValor = false;
+            if (tipoSelecionado === "morador") {
+                tipoValor = true;
             }
 
             const userData = {
@@ -50,10 +56,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 apartamentosId: apartamento,
                 password: password,
                 concierge: concierge,
-                tipo: true,
+                tipo: tipoValor,
             };
 
-                        console.log('Dados do usuário a serem enviados:', userData);
+            console.log('Dados do usuário a serem enviados:', userData);
 
             fetch('http://localhost:3333/users', {
                 method: 'POST',
@@ -82,7 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     alert('Erro ao cadastrar o usuário: ' + error.message);
                 });
         });
-
 
         btncancelar.addEventListener('click', function () {
             window.location.href = './index.html';

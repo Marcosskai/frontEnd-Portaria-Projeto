@@ -33,6 +33,7 @@
                         <th>Email</th>
                         <th>Telefone</th>
                         <th>Apartamento</th>
+                        <th>Tipo</th>
                         <th>Ações</th>  
                     </tr>
                 </thead>
@@ -44,11 +45,11 @@
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2 style="position: relative;top: -8px;">Editar Usuário</h2>
+            <h2 style="position: relative; top: -8px;">Editar Usuário</h2>
             <form id="editUserForm">
                 <input type="hidden" id="editUserId">
                 <div>
-                    <label for="editUserName" style="position: relative; top:23px;">Nome</label>
+                    <label for="editUserName">Nome</label>
                     <input type="text" id="editUserName" required>
                 </div>
                 <div>
@@ -63,10 +64,18 @@
                     <label for="editUserApartments">Apartamentos</label>
                     <input type="text" id="editUserApartments" required>
                 </div>
-                <button type="submit" >Salvar</button>
+                <div>
+                    <label for="editUserType">Tipo</label>
+                    <select id="editUserType" required>
+                        <option value="morador">Morador</option>
+                        <option value="visitante">Visitante</option>
+                    </select>
+                </div>
+                <button type="submit">Salvar</button>
             </form>
         </div>
     </div>
+    
 
     <script src="app.js"></script>
 </body>

@@ -73,14 +73,12 @@ thead th {
 }
 
 th, td {
-    padding: 22px 36px;
+    padding: 22px 17px;
 }
 
 td {
     border-top: 1px solid #ddd;
     font-size: 14px;
-    position: relative;
-    top: -1px;
 }
 
 tbody tr:hover {
@@ -118,7 +116,7 @@ tbody tr:hover {
     width: 80%;
     border-radius: 10px;
     position: relative;
-    top: 110px;
+    top: 52px;
 }
 
 .close {

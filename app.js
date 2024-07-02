@@ -1,41 +1,47 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const userListBody = document.getElementById('user-list-body');
     const editModal = document.getElementById('editModal');
-    const closeModal = document.getElementsByClassName('close')[0]; 
+    const closeModal = document.querySelector('.close');
+    const editUserForm = document.getElementById('editUserForm');
 
-    
-    if (!closeModal) {
-        console.error('Elemento .close não encontrado.');
+    if (!editModal || !closeModal || !editUserForm) {
+        console.error('Elementos não encontrados.');
         return;
     }
 
-    const editUserForm = document.getElementById('editUserForm');
     const editUserId = document.getElementById('editUserId');
     const editUserName = document.getElementById('editUserName');
     const editUserEmail = document.getElementById('editUserEmail');
     const editUserPhone = document.getElementById('editUserPhone');
-    const editUserApartments = document.getElementById('editUserApartments'); 
+    const editUserApartments = document.getElementById('editUserApartments');
+    const editUserType = document.getElementById('editUserType');
+
+    closeModal.addEventListener('click', closeEditModal);
+
+    window.addEventListener('click', (event) => {
+        if (event.target === editModal) {
+            closeEditModal();
+        }
+    });
 
     function openEditModal(user) {
+        if (!editUserId || !editUserName || !editUserEmail || !editUserPhone || !editUserApartments || !editUserType) {
+            console.error('Elemento(s) não encontrado(s) na função openEditModal.');
+            return;
+        }
+
         editUserId.value = user.id;
         editUserName.value = user.name;
         editUserEmail.value = user.email;
         editUserPhone.value = user.call;
         editUserApartments.value = user.apartamentosId;
+        editUserType.value = user.tipo ? 'morador' : 'visitante';
+
         editModal.style.display = "block";
     }
 
     function closeEditModal() {
         editModal.style.display = "none";
     }
-
-    closeModal.addEventListener('click', closeEditModal);
-
-    window.addEventListener('click', (event) => {
-        if (event.target == editModal) {
-            closeEditModal();
-        }
-    });
 
     editUserForm.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -45,7 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
             name: editUserName.value,
             email: editUserEmail.value,
             call: editUserPhone.value,
-            apartamentosId: editUserApartments.value 
+            apartamentosId: editUserApartments.value,
+            tipo: editUserType.value === 'morador' ? true : false //
         };
 
         fetch('http://localhost:3333/update-users', {
@@ -60,43 +67,18 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!response.ok) {
                 throw new Error('Erro ao editar o usuário');
             }
-
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                return response.json();
-            } else {
-                return { success: true }; 
-            }
+            return response.json();
         })
         .then(data => {
-            if (!data.success) {
-                throw new Error('Resposta da API inválida após atualização');
-            }
-
             const userRow = document.querySelector(`tr[data-user-id='${userId}']`);
             const userNameCell = userRow.querySelector('.user-name');
-            
-            userNameCell.innerHTML = ''; 
 
-           
-            const icon = document.createElement('img');
-            icon.src = 'style/Vector.png';
-            icon.alt = 'Ícone do usuário';
-            icon.style.padding = '10px';
-            icon.style.width = '43px';
-            icon.style.height = '42px';
-            icon.style.marginRight = '20px';
-            icon.style.backgroundColor = 'rgb(217, 217, 217)';
-            icon.style.borderRadius = '50px';
-            userNameCell.appendChild(icon);
-            userNameCell.appendChild(document.createTextNode(updatedUser.name));
-
-           
+            userNameCell.textContent = updatedUser.name;
             userRow.querySelector('.user-email').textContent = updatedUser.email;
             userRow.querySelector('.user-phone').textContent = updatedUser.call;
-            userRow.querySelector('.user-apartamentosId').textContent = updatedUser.apartamentosId; 
+            userRow.querySelector('.user-apartamentosId').textContent = updatedUser.apartamentosId;
+            userRow.querySelector('.user-type').textContent = updatedUser.tipo ? 'MORADOR' : 'VISITANTE';
 
-          
             closeEditModal();
             alert('Usuário atualizado com sucesso!');
         })
@@ -120,9 +102,10 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
         if (!Array.isArray(data)) {
             throw new Error('Formato de dados inválido');
-            
         }
-        console.log(data)
+
+        const userListBody = document.getElementById('user-list-body');
+        userListBody.innerHTML = '';
 
         data.forEach(user => {
             const row = document.createElement('tr');
@@ -130,19 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const nameCell = document.createElement('td');
             nameCell.className = 'user-name';
-            nameCell.style.display = 'flex';
-            nameCell.style.alignItems = 'center';
-            const icon = document.createElement('img');
-            icon.src = 'style/Vector.png';
-            icon.alt = 'Ícone do usuário';
-            icon.style.padding = '10px';
-            icon.style.width = '43px';
-            icon.style.height = '42px';
-            icon.style.marginRight = '20px';
-            icon.style.backgroundColor = 'rgb(217, 217, 217)';
-            icon.style.borderRadius = '50px';
-            nameCell.appendChild(icon);
-            nameCell.appendChild(document.createTextNode(user.name));
+            nameCell.textContent = user.name;
             row.appendChild(nameCell);
 
             const emailCell = document.createElement('td');
@@ -156,9 +127,14 @@ document.addEventListener("DOMContentLoaded", function () {
             row.appendChild(phoneCell);
 
             const apartamentosIdCell = document.createElement('td');
-            apartamentosIdCell.className = 'user-apartamentosId'; 
+            apartamentosIdCell.className = 'user-apartamentosId';
             apartamentosIdCell.textContent = user.apartamentosId;
             row.appendChild(apartamentosIdCell);
+
+            const typeCell = document.createElement('td');
+            typeCell.className = 'user-type';
+            typeCell.textContent = user.tipo ? 'MORADOR' : 'VISITANTE';
+            row.appendChild(typeCell);
 
             const actionsCell = document.createElement('td');
             const editButton = document.createElement('button');
@@ -201,6 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             actionsCell.appendChild(deleteIcon);
             row.appendChild(actionsCell);
+
             userListBody.appendChild(row);
         });
     })

@@ -29,6 +29,15 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // Limpa os campos do formulário
+        editUserId.value = '';
+        editUserName.value = '';
+        editUserEmail.value = '';
+        editUserPhone.value = '';
+        editUserApartments.value = '';
+        editUserType.value = '';
+
+        // Atualiza os campos com os dados do usuário atual
         editUserId.value = user.id;
         editUserName.value = user.name;
         editUserEmail.value = user.email;
@@ -52,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
             email: editUserEmail.value,
             call: editUserPhone.value,
             apartamentosId: editUserApartments.value,
-            tipo: editUserType.value === 'morador' ? true : false //
+            tipo: editUserType.value === 'morador' ? true : false
         };
 
         fetch('http://localhost:3333/update-users', {
@@ -65,15 +74,12 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Erro ao editar o usuário');
+                throw new Error('Erro ao editar o usuário' + response.status);
             }
-            return response.json();
-        })
-        .then(data => {
-            const userRow = document.querySelector(`tr[data-user-id='${userId}']`);
-            const userNameCell = userRow.querySelector('.user-name');
 
-            userNameCell.textContent = updatedUser.name;
+            // Atualiza os dados na tabela após a edição bem-sucedida
+            const userRow = document.querySelector(`tr[data-user-id='${userId}']`);
+            userRow.querySelector('.user-name').textContent = updatedUser.name;
             userRow.querySelector('.user-email').textContent = updatedUser.email;
             userRow.querySelector('.user-phone').textContent = updatedUser.call;
             userRow.querySelector('.user-apartamentosId').textContent = updatedUser.apartamentosId;

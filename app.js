@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Limpa os campos do formulário
         editUserId.value = '';
         editUserName.value = '';
         editUserEmail.value = '';
@@ -39,7 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
         editUserApartments.value = '';
         editUserType.value = '';
 
-        // Atualiza os campos com os dados do usuário atual
         editUserId.value = user.id;
         editUserName.value = user.name;
         editUserEmail.value = user.email;
@@ -192,5 +190,143 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch(error => {
         console.error('Erro ao buscar os usuários:', error);
         alert('Erro ao buscar os usuários');
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const responseToken = localStorage.getItem('responseToken');
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+
+    const searchUsers = async (query) => {
+        try {
+            let searchParams = {};
+
+            if (query.length <= 4 && !isNaN(query) && !isNaN(parseFloat(query))) {
+                searchParams = { apartamentosId: query };
+            } else if (query.length === 11 && !isNaN(query) && !isNaN(parseFloat(query))) {
+                searchParams = { call: query };
+            } else if (query.indexOf("@") !== -1) {
+                searchParams = { email: query };
+            } else {
+                searchParams = { name: query };
+            }
+
+            const response = await fetch('http://localhost:3333/searchuser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${responseToken}`
+                },
+                body: JSON.stringify(searchParams)
+            });
+
+            if (!response.ok) {
+                throw new Error('Erro ao buscar usuários');
+            }
+
+            const users = await response.json();
+            displayUsers(users); 
+        } catch (error) {
+            console.error('Erro:', error);
+            alert('Erro ao buscar usuários');
+        }
+    };
+
+    const displayUsers = (users) => {
+        const userListBody = document.getElementById('user-list-body');
+        userListBody.innerHTML = '';
+
+        users.forEach(user => {
+            const row = document.createElement('tr');
+            row.dataset.userId = user.id;
+
+            const nameCell = document.createElement('td');
+            nameCell.className = 'user-name';
+            nameCell.textContent = user.name;
+            row.appendChild(nameCell);
+
+            const emailCell = document.createElement('td');
+            emailCell.className = 'user-email';
+            emailCell.textContent = user.email;
+            row.appendChild(emailCell);
+
+            const phoneCell = document.createElement('td');
+            phoneCell.className = 'user-phone';
+            phoneCell.textContent = user.call;
+            row.appendChild(phoneCell);
+
+            const apartamentosIdCell = document.createElement('td');
+            apartamentosIdCell.className = 'user-apartamentosId';
+            apartamentosIdCell.textContent = user.apartamentosId;
+            row.appendChild(apartamentosIdCell);
+
+            const typeCell = document.createElement('td');
+            typeCell.className = 'user-type';
+            typeCell.textContent = user.tipo ? 'MORADOR' : 'VISITANTE';
+            row.appendChild(typeCell);
+
+            const actionsCell = document.createElement('td');
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Editar';
+            editButton.addEventListener('click', () => {
+                openEditModal(user);
+            });
+            actionsCell.appendChild(editButton);
+
+            const deleteIcon = document.createElement('img');
+            deleteIcon.src = 'style/delete.png';
+            deleteIcon.alt = 'Excluir usuário';
+            deleteIcon.style.width = '16px';
+            deleteIcon.style.height = '16px';
+            deleteIcon.style.cursor = 'pointer';
+            deleteIcon.style.marginLeft = '33px';
+            deleteIcon.addEventListener('click', () => {
+                if (confirm(`Tem certeza que deseja excluir o usuário ${user.name}?`)) {
+                    fetch('http://localhost:3333/delete-user', {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${responseToken}`
+                        },
+                        body: JSON.stringify({ id: user.id })
+                    })
+                    .then(response => {
+                        if (response.status !== 204) {
+                            return response.json().then(error => {
+                                throw new Error(error.message || 'Erro ao excluir o usuário');
+                            });
+                        }
+                        row.remove();
+                    })
+                    .catch(error => {
+                        console.error('Erro ao excluir o usuário:', error);
+                        alert('Erro ao excluir o usuário');
+                    });
+                }
+            });
+            actionsCell.appendChild(deleteIcon);
+            row.appendChild(actionsCell);
+
+            userListBody.appendChild(row);
+        });
+    };
+
+    
+    searchButton.addEventListener("click", () => {
+        const query = searchInput.value.trim();
+        if (query) {
+            searchUsers(query);
+        }
+    });
+
+    
+    searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            const query = searchInput.value.trim();
+            if (query) {
+                searchUsers(query);
+            }
+        }
     });
 });

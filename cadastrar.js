@@ -1,3 +1,6 @@
+const responseToken = localStorage.getItem('responseToken');
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const cadastroForm = document.getElementById('cadastroForm');
     const passwordField = document.getElementById('password');
@@ -32,18 +35,15 @@ document.addEventListener("DOMContentLoaded", function () {
             const tipoSelect = document.getElementById('tipo');
             const tipoSelecionado = tipoSelect.value;
 
-            // Ajusta a variável password caso concierge não esteja marcado
             if (!concierge) {
                 password = "";
             }
 
-            // Validação dos campos
             if (!nome || !email || !telefone || !apartamento) {
                 alert('Todos os campos são obrigatórios');
                 return;
             }
 
-            // Define o valor de tipo como true se for "morador" e false se for "visitante"
             let tipoValor = false;
             if (tipoSelecionado === "morador") {
                 tipoValor = true;

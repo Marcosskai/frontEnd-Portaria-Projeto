@@ -187,3 +187,8 @@ td button {
    cursor: pointer;
 }
 
+.h1 h1 {
+    font-size: 19px;
+    position: relative;
+    top: -104px;
+}

@@ -27,15 +27,18 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     .then(data => {
         console.log('Dados recebidos da API:', data);
         if (data.token) {
-            console.log('Login bem-sucedido:', data);
-
+            console.log('Login bem-sucedido:', data.token);
+            localStorage.setItem('responseToken', data.token);
             window.location.href = 'index.html';
         } else {
             errorMessage.textContent = data.message || 'Invalid email or password.2';
         }
+
     })
     .catch(error => {
         console.error('Erro ao fazer login:', error);
         errorMessage.textContent = 'E-mail ou Senha inválidos.';
     });
+    
 });
+// export {responseToken}

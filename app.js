@@ -1,3 +1,5 @@
+const responseToken = localStorage.getItem('responseToken');
+
 document.addEventListener("DOMContentLoaded", function () {
     const editModal = document.getElementById('editModal');
     const closeModal = document.querySelector('.close');
@@ -68,8 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3OTc0NGRmMy1iMjM2LTRkZTAtODU5ZC05YjlhZjdiOGU0N2YiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4MjE4NTgzfQ.EZHbJzS5y8g8aaNaKn32rI2qicheStHrRdi50UbOIig'
-            },
+                'Authorization': `Bearer ${responseToken}`
+},
             body: JSON.stringify(updatedUser)
         })
         .then(response => {
@@ -96,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetch('http://localhost:3333/view-all', {
         headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3OTc0NGRmMy1iMjM2LTRkZTAtODU5ZC05YjlhZjdiOGU0N2YiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4MjE4NTgzfQ.EZHbJzS5y8g8aaNaKn32rI2qicheStHrRdi50UbOIig'
+            'Authorization': `Bearer ${responseToken}`
         }
     })
     .then(response => {
@@ -163,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3OTc0NGRmMy1iMjM2LTRkZTAtODU5ZC05YjlhZjdiOGU0N2YiLCJyb2xlcyI6dHJ1ZSwiaWF0IjoxNzE4MjE4NTgzfQ.EZHbJzS5y8g8aaNaKn32rI2qicheStHrRdi50UbOIig'
+                            'Authorization': `Bearer ${responseToken}`
                         },
                         body: JSON.stringify({ id: user.id })
                     })

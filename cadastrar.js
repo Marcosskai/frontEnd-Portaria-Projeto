@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
             let password = document.getElementById('password').value.trim();
             const concierge = conciergeCheckbox.checked;
 
-            // Captura o valor selecionado no select
             const tipoSelect = document.getElementById('tipo');
             const tipoSelecionado = tipoSelect.value;
 

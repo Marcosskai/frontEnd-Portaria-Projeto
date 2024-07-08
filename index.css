@@ -69,7 +69,7 @@ table {
 thead th {
     font-size: 16px;
     background-color: #EEEEEE; 
-
+    padding: 20px;
 }
 
 th, td {
@@ -168,8 +168,7 @@ tbody tr:hover {
 
 td img {
     position: relative;
-    top: 0px;
-
+    top: 4px;
 }
 
 td button {
@@ -194,7 +193,7 @@ td button {
 .h1 h1 {
     font-size: 19px;
     position: relative;
-    top: -102px;
+    top: -103px;
 }
 
 .search-container {
@@ -234,4 +233,13 @@ td button {
     border: none;
     cursor: pointer;
     color: white;
+}
+.icon-style {
+    width: 27px;
+    height: 27px;
+    background-color: #EEEEEE;
+    border-radius: 50px;
+    padding: 5px;
+    position: relative;
+    top: 8px;
 }

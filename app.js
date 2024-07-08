@@ -1,11 +1,12 @@
-const responseToken = localStorage.getItem('responseToken');
-
 document.addEventListener("DOMContentLoaded", function () {
+    const responseToken = localStorage.getItem('responseToken');
     const editModal = document.getElementById('editModal');
     const closeModal = document.querySelector('.close');
     const editUserForm = document.getElementById('editUserForm');
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
 
-    if (!editModal || !closeModal || !editUserForm) {
+    if (!editModal || !closeModal || !editUserForm || !searchInput || !searchButton) {
         console.error('Elementos não encontrados.');
         return;
     }
@@ -30,13 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Elemento(s) não encontrado(s) na função openEditModal.');
             return;
         }
-
-        editUserId.value = '';
-        editUserName.value = '';
-        editUserEmail.value = '';
-        editUserPhone.value = '';
-        editUserApartments.value = '';
-        editUserType.value = '';
 
         editUserId.value = user.id;
         editUserName.value = user.name;
@@ -69,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${responseToken}`
-},
+            },
             body: JSON.stringify(updatedUser)
         })
         .then(response => {
@@ -77,9 +71,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 throw new Error('Erro ao editar o usuário' + response.status);
             }
 
-            // Atualiza os dados na tabela após a edição bem-sucedida
             const userRow = document.querySelector(`tr[data-user-id='${userId}']`);
-            userRow.querySelector('.user-name').textContent = updatedUser.name;
+            userRow.querySelector('.user-name span').textContent = updatedUser.name;
             userRow.querySelector('.user-email').textContent = updatedUser.email;
             userRow.querySelector('.user-phone').textContent = updatedUser.call;
             userRow.querySelector('.user-apartamentosId').textContent = updatedUser.apartamentosId;
@@ -110,93 +103,12 @@ document.addEventListener("DOMContentLoaded", function () {
             throw new Error('Formato de dados inválido');
         }
 
-        const userListBody = document.getElementById('user-list-body');
-        userListBody.innerHTML = '';
-
-        data.forEach(user => {
-            const row = document.createElement('tr');
-            row.dataset.userId = user.id;
-
-            const nameCell = document.createElement('td');
-            nameCell.className = 'user-name';
-            nameCell.textContent = user.name;
-            row.appendChild(nameCell);
-
-            const emailCell = document.createElement('td');
-            emailCell.className = 'user-email';
-            emailCell.textContent = user.email;
-            row.appendChild(emailCell);
-
-            const phoneCell = document.createElement('td');
-            phoneCell.className = 'user-phone';
-            phoneCell.textContent = user.call;
-            row.appendChild(phoneCell);
-
-            const apartamentosIdCell = document.createElement('td');
-            apartamentosIdCell.className = 'user-apartamentosId';
-            apartamentosIdCell.textContent = user.apartamentosId;
-            row.appendChild(apartamentosIdCell);
-
-            const typeCell = document.createElement('td');
-            typeCell.className = 'user-type';
-            typeCell.textContent = user.tipo ? 'MORADOR' : 'VISITANTE';
-            row.appendChild(typeCell);
-
-            const actionsCell = document.createElement('td');
-            const editButton = document.createElement('button');
-            editButton.textContent = 'Editar';
-            editButton.addEventListener('click', () => {
-                openEditModal(user);
-            });
-            actionsCell.appendChild(editButton);
-
-            const deleteIcon = document.createElement('img');
-            deleteIcon.src = 'style/delete.png';
-            deleteIcon.alt = 'Excluir usuário';
-            deleteIcon.style.width = '16px';
-            deleteIcon.style.height = '16px';
-            deleteIcon.style.cursor = 'pointer';
-            deleteIcon.style.marginLeft = '33px';
-            deleteIcon.addEventListener('click', () => {
-                if (confirm(`Tem certeza que deseja excluir o usuário ${user.name}?`)) {
-                    fetch('http://localhost:3333/delete-user', {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${responseToken}`
-                        },
-                        body: JSON.stringify({ id: user.id })
-                    })
-                    .then(response => {
-                        if (response.status !== 204) {
-                            return response.json().then(error => {
-                                throw new Error(error.message || 'Erro ao excluir o usuário');
-                            });
-                        }
-                        row.remove();
-                    })
-                    .catch(error => {
-                        console.error('Erro ao excluir o usuário:', error);
-                        alert('Erro ao excluir o usuário');
-                    });
-                }
-            });
-            actionsCell.appendChild(deleteIcon);
-            row.appendChild(actionsCell);
-
-            userListBody.appendChild(row);
-        });
+        displayUsers(data);
     })
     .catch(error => {
         console.error('Erro ao buscar os usuários:', error);
         alert('Erro ao buscar os usuários');
     });
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    const responseToken = localStorage.getItem('responseToken');
-    const searchInput = document.getElementById('searchInput');
-    const searchButton = document.getElementById('searchButton');
 
     const searchUsers = async (query) => {
         try {
@@ -226,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const users = await response.json();
-            displayUsers(users); 
+            displayUsers(users);
         } catch (error) {
             console.error('Erro:', error);
             alert('Erro ao buscar usuários');
@@ -243,8 +155,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const nameCell = document.createElement('td');
             nameCell.className = 'user-name';
-            nameCell.textContent = user.name;
+            
+            const icon = document.createElement('img');
+            icon.src = 'style/vector.png';
+            icon.alt = 'User Icon';
+            icon.className = 'icon-style';
+            
+            nameCell.appendChild(icon);
+            
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = ` ${user.name}`;
+            nameCell.appendChild(nameSpan);
+            
             row.appendChild(nameCell);
+            
 
             const emailCell = document.createElement('td');
             emailCell.className = 'user-email';
@@ -312,7 +236,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     };
 
-    
     searchButton.addEventListener("click", () => {
         const query = searchInput.value.trim();
         if (query) {
@@ -320,7 +243,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    
     searchInput.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
             const query = searchInput.value.trim();
